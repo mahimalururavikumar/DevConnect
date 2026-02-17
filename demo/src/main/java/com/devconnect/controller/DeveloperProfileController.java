@@ -2,6 +2,7 @@ package com.devconnect.controller;
 
 import com.devconnect.dto.DeveloperProfileRequest;
 import com.devconnect.dto.DeveloperProfileResponse;
+import com.devconnect.dto.ProjectRequest;
 import com.devconnect.service.DeveloperProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -29,5 +30,27 @@ public class DeveloperProfileController {
     {
         String email = authentication.getName();
         return profileService.getProfile(email);
+    }
+
+    @PostMapping("/project")
+    public String addProject(@RequestBody ProjectRequest request,
+                             Authentication authentication) {
+
+        String email = authentication.getName();
+
+        profileService.addProject(email, request);
+
+        return "Project added successfully";
+    }
+
+    @PostMapping("/resume")
+    public String uploadResume(@RequestParam("file") org.springframework.web.multipart.MultipartFile file,
+                               Authentication authentication) {
+
+        String email = authentication.getName();
+
+        profileService.uploadResume(email, file);
+
+        return "Resume uploaded successfully";
     }
 }
