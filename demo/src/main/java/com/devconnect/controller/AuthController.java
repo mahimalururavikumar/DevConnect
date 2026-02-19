@@ -1,5 +1,6 @@
 package com.devconnect.controller;
 
+import com.devconnect.dto.RegisterRequest;
 import com.devconnect.entity.Role;
 import com.devconnect.entity.User;
 import com.devconnect.repository.UserRepository;
@@ -20,14 +21,32 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
-    @PostMapping("/register")
-    public String register(@RequestBody User user)
-    {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    @PostMapping("/register/developer")
+    public String registerDeveloper(@RequestBody RegisterRequest request) {
+
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.DEVELOPER);
 
         userRepository.save(user);
-        return "User registered Successfully";
+
+        return "Developer registered successfully";
+    }
+
+    @PostMapping("/register/recruiter")
+    public String registerRecruiter(@RequestBody RegisterRequest request) {
+
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setRole(Role.RECRUITER);
+
+        userRepository.save(user);
+
+        return "Recruiter registered successfully";
     }
 
     @PostMapping("/login")

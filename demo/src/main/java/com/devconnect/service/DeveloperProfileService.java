@@ -158,7 +158,7 @@ public class DeveloperProfileService {
 
     private int calculateCompletion(DeveloperProfile profile)
     {
-        int totalFields = 5;
+        int totalFields = 6;
         int filled = 0;
 
         if(profile.getBio() != null && !profile.getBio().isBlank()) filled++;
@@ -166,6 +166,7 @@ public class DeveloperProfileService {
         if(profile.getGithubUsername() != null && !profile.getGithubUsername().isBlank()) filled++;
         if(profile.getSkills() != null && !profile.getSkills().isEmpty()) filled++;
         if(profile.getProjects() != null && !profile.getProjects().isEmpty()) filled++;
+        if(profile.getResumePath() != null && !profile.getResumePath().isEmpty()) filled++;
 
         return (filled*100)/ totalFields;
     }
