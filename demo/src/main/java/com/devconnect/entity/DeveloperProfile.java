@@ -26,6 +26,10 @@ public class DeveloperProfile {
 
     private String githubUsername;
 
+    private Integer githubRepos;
+
+    private Integer githubFollowers;
+
     private LocalDateTime createdAt;
 
     @OneToOne

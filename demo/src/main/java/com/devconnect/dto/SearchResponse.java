@@ -12,4 +12,7 @@ public class SearchResponse {
     private Integer experienceYears;
     private Set<String> skills;
     private Integer matchScore;
+    private double finalScore;
+    private Integer githubFollowers;
+    private Integer githubRepos;
 }

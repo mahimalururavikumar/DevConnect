@@ -1,5 +1,6 @@
 package com.devconnect.controller;
 
+import com.devconnect.dto.PageResponse;
 import com.devconnect.dto.SearchRequest;
 import com.devconnect.dto.SearchResponse;
 import com.devconnect.service.RecruiterService;
@@ -15,7 +16,7 @@ public class RecruiterController {
     private final RecruiterService recruiterService;
 
     @PostMapping("/search")
-    public Page<SearchResponse> search(@RequestBody SearchRequest request) {
+    public PageResponse<SearchResponse> search(@RequestBody SearchRequest request) {
         return recruiterService.searchBySkills(request);
     }
 }

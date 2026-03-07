@@ -17,5 +17,10 @@ spring:
       max-file-size: 5MB
       max-request-size: 5MB
 
+matching:
+  weight:
+    skill: 0.6
+    experience: 0.2
+    completion: 0.2
 server:
   port: 8080

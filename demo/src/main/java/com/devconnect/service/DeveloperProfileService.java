@@ -1,9 +1,6 @@
 package com.devconnect.service;
 
-import com.devconnect.dto.DeveloperProfileRequest;
-import com.devconnect.dto.DeveloperProfileResponse;
-import com.devconnect.dto.ProjectRequest;
-import com.devconnect.dto.ProjectResponse;
+import com.devconnect.dto.*;
 import com.devconnect.entity.*;
 import com.devconnect.repository.DeveloperProfileRepository;
 import com.devconnect.repository.SkillRepository;
@@ -23,6 +20,7 @@ public class DeveloperProfileService {
     private final DeveloperProfileRepository profileRepository;
     private final SkillRepository skillRepository;
     private final UserRepository userRepository;
+    private final GithubService githubService;
 
     public void createProfile(String email, DeveloperProfileRequest request)
     {
@@ -36,6 +34,8 @@ public class DeveloperProfileService {
         if (profileRepository.findByUserId(user.getId()).isPresent()) {
             throw new RuntimeException("Profile already exists");
         }
+
+        GithubUserResponse github = githubService.getGithubUser(request.getGithubUsername());
 
         Set<Skill> skillEntities = new HashSet<>();
 
@@ -56,6 +56,8 @@ public class DeveloperProfileService {
                 .createdAt(LocalDateTime.now())
                 .user(user)
                 .skills(skillEntities)
+                .githubFollowers(github.followers)
+                .githubRepos(github.public_repos)
                 .build();
 
         profileRepository.save(profile);
