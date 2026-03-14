@@ -1,16 +1,15 @@
 package com.devconnect.controller;
 
+import com.devconnect.dto.AuthResponse;
 import com.devconnect.dto.RegisterRequest;
 import com.devconnect.entity.Role;
 import com.devconnect.entity.User;
 import com.devconnect.repository.UserRepository;
 import com.devconnect.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -59,5 +58,19 @@ public class AuthController {
         }
 
         return jwtUtil.generateToken(user.getEmail());
+    }
+
+    @GetMapping("/me")
+    public AuthResponse me(Authentication authentication)
+    {
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(()
+                -> new RuntimeException("User not found"));
+
+        return AuthResponse.builder()
+                .email(user.getEmail())
+                .role(user.getRole().name())
+                .build();
     }
 }

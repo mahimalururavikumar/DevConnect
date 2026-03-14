@@ -5,7 +5,6 @@ import com.devconnect.dto.SearchRequest;
 import com.devconnect.dto.SearchResponse;
 import com.devconnect.service.RecruiterService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

@@ -37,14 +37,11 @@ public class DeveloperProfile {
     private User user;
 
     @ManyToMany
-    @JoinTable(
-            name = "developer_skills",
-            joinColumns = @JoinColumn(name = "developer_id"),
-            inverseJoinColumns = @JoinColumn(name = "skill_id")
-    )
+    @JoinTable(name = "developer_skills", joinColumns = @JoinColumn(name = "developer_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private Set<Skill> skills;
 
     @OneToMany(mappedBy = "developerProfile", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private Set<Project> projects = new HashSet<>();
 
     private String resumePath;

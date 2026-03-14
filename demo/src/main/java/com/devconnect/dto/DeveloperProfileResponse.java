@@ -1,6 +1,5 @@
 package com.devconnect.dto;
 
-import com.devconnect.entity.Skill;
 import lombok.Builder;
 import lombok.Data;
 
